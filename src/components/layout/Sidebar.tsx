@@ -14,14 +14,9 @@ const Sidebar = () => {
   return (
     <aside className="w-64 h-screen bg-[#0F1923] text-white flex flex-col sticky top-0 border-r border-[#1E2D3D]">
       <div className="p-6">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="h-8 w-8 rounded-full bg-[#1A9E3F] flex items-center justify-center font-bold text-sm">
-            CK
-          </div>
-          <div>
-            <h1 className="font-bold text-lg leading-none">CampusKobo</h1>
-            <span className="text-[10px] uppercase tracking-widest text-[#22C55E] font-bold">Admin Panel</span>
-          </div>
+        <div className="flex flex-col items-start gap-2 mb-6">
+          <img src="/logo.svg" alt="CampusKobo Logo" className="h-12 w-auto object-contain" />
+          <span className="text-[10px] uppercase tracking-widest text-[#22C55E] font-bold ml-1">Admin Panel</span>
         </div>
         <div className="h-px bg-[#1E2D3D] w-full" />
       </div>

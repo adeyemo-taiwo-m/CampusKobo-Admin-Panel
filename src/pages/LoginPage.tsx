@@ -49,12 +49,7 @@ const LoginPage = () => {
       {/* Left Column - Desktop Only */}
       <div className="hidden lg:flex flex-col justify-between w-1/2 bg-[#0F1923] p-12 relative overflow-hidden">
         <div className="relative z-10">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#1A9E3F] flex items-center justify-center font-bold text-lg text-white">
-              CK
-            </div>
-            <h1 className="text-2xl font-bold text-white">CampusKobo</h1>
-          </div>
+          <img src="/logo.svg" alt="CampusKobo Logo" className="h-20 w-auto object-contain" />
         </div>
 
         <div className="relative z-10 max-w-lg">
