@@ -48,8 +48,17 @@ const LoginPage = () => {
     <div className="flex h-screen w-full">
       {/* Left Column - Desktop Only */}
       <div className="hidden lg:flex flex-col justify-between w-1/2 bg-[#0F1923] p-12 relative overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-10000 hover:scale-110"
+          style={{ backgroundImage: 'url("/campus-bg.png")' }}
+        />
+        <div className="absolute inset-0 z-1 bg-gradient-to-br from-[#0F1923]/95 via-[#0F1923]/80 to-transparent" />
+
         <div className="relative z-10">
-          <img src="/logo.svg" alt="CampusKobo Logo" className="h-20 w-auto object-contain" />
+          <div className="flex items-center gap-3">
+            <img src="/logo.svg" alt="CampusKobo Logo" className="h-12 w-auto object-contain" />
+          </div>
         </div>
 
         <div className="relative z-10 max-w-lg">

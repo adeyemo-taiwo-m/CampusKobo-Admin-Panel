@@ -1,13 +1,14 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { LayoutDashboard, FileText, Tag, BookOpen, LogOut, X } from 'lucide-react';
 import { cn } from '../../lib/utils';
+import { useAuth } from '../../context/AuthContext';
 
 interface SidebarProps {
   onClose?: () => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
+  const { logout, user } = useAuth();
   const navItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
     { icon: FileText, label: 'Content', path: '/content' },
@@ -59,9 +60,13 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
       <div className="p-6 border-top border-[#1E2D3D]">
         <div className="mb-4">
           <p className="text-[10px] text-gray-500 uppercase font-bold mb-1">Logged in as</p>
-          <p className="text-xs text-gray-300 truncate">admin@campuskobo.com</p>
+          <p className="text-xs text-gray-300 truncate">{user?.email || 'admin@campuskobo.com'}</p>
         </div>
-        <button className="flex items-center gap-3 w-full px-4 py-2 text-sm font-medium text-gray-400 hover:text-red-400 transition-colors">
+        <button 
+          type="button"
+          onClick={logout}
+          className="flex items-center gap-3 w-full px-4 py-2 text-sm font-medium text-gray-400 hover:text-red-400 transition-colors cursor-pointer"
+        >
           <LogOut size={18} />
           <span>Logout</span>
         </button>
