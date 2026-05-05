@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader';
 import Button from '../components/ui/Button';

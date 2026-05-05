@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader';
 import { useDashboardStats } from '../hooks/useDashboard';
@@ -9,7 +8,6 @@ import {
   Star, 
   GraduationCap, 
   TrendingUp, 
-  Plus,
   ChevronRight,
   PlayCircle,
   Mic,

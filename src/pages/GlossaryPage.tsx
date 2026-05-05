@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader';
 import Button from '../components/ui/Button';
@@ -8,7 +8,7 @@ import Input from '../components/ui/Input';
 import Textarea from '../components/ui/Textarea';
 import EmptyState from '../components/ui/EmptyState';
 import ConfirmModal from '../components/ui/ConfirmModal';
-import Badge from '../components/ui/Badge';
+
 import { BookOpen, Pencil, Trash2, Star } from 'lucide-react';
 import { useAllGlossaryTerms, useAddGlossaryTerm, useUpdateGlossaryTerm, useDeleteGlossaryTerm, useSetTermOfDay } from '../hooks/useGlossary';
 import { formatDate, truncate } from '../lib/utils';
