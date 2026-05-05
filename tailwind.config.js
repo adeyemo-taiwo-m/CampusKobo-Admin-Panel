@@ -7,19 +7,20 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
         serif: ['DM Serif Display', 'serif'],
+        mono: ['"Geist Mono"', 'monospace'],
       },
       colors: {
         primary: {
-          DEFAULT: '#1A9E3F',
-          dark: '#16803A',
+          DEFAULT: '#19a051',
+          dark: '#177e42',
         },
         accent: {
-          DEFAULT: '#22C55E',
+          DEFAULT: '#2dd673',
         },
-        sidebar: '#0F1923',
-        'sidebar-border': '#1E2D3D',
+        sidebar: '#062d18',
+        'sidebar-border': '#0A3D21',
       },
     },
   },

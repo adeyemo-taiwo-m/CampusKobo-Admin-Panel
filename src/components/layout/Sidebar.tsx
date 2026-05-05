@@ -17,12 +17,12 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   ];
 
   return (
-    <aside className="w-64 h-screen bg-[#0F1923] text-white flex flex-col sticky top-0 border-r border-[#1E2D3D]">
+    <aside className="w-64 h-screen bg-sidebar text-white flex flex-col sticky top-0 border-r border-sidebar-border">
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex flex-col items-start gap-2">
             <img src="/logo.svg" alt="CampusKobo Logo" className="h-10 w-auto object-contain" />
-            <span className="text-[10px] uppercase tracking-widest text-[#22C55E] font-bold ml-1">Admin Panel</span>
+            <span className="text-[10px] uppercase tracking-widest text-accent font-bold ml-1">Admin Panel</span>
           </div>
           {onClose && (
             <button 
@@ -33,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
             </button>
           )}
         </div>
-        <div className="h-px bg-[#1E2D3D] w-full" />
+        <div className="h-px bg-sidebar-border w-full" />
       </div>
 
       <nav className="flex-1 px-4 space-y-1">
@@ -44,7 +44,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
             className={({ isActive }) => cn(
               'flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 group',
               isActive 
-                ? 'bg-[#1A9E3F]/10 border-l-2 border-[#1A9E3F] text-[#22C55E]' 
+                ? 'bg-primary/10 border-l-2 border-primary text-accent' 
                 : 'text-gray-400 hover:text-white hover:bg-white/5'
             )}
           >
@@ -57,10 +57,10 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
         ))}
       </nav>
 
-      <div className="p-6 border-top border-[#1E2D3D]">
+      <div className="p-6 border-top border-sidebar-border">
         <div className="mb-4">
-          <p className="text-[10px] text-gray-500 uppercase font-bold mb-1">Logged in as</p>
-          <p className="text-xs text-gray-300 truncate">{user?.email || 'admin@campuskobo.com'}</p>
+          <p className="text-[10px] text-[#88edb1] uppercase font-bold mb-1 opacity-70">Logged in as</p>
+          <p className="text-xs text-white truncate font-medium">{user?.email || 'admin@campuskobo.com'}</p>
         </div>
         <button 
           type="button"

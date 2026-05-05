@@ -47,13 +47,13 @@ const LoginPage = () => {
   return (
     <div className="flex h-screen w-full">
       {/* Left Column - Desktop Only */}
-      <div className="hidden lg:flex flex-col justify-between w-1/2 bg-[#0F1923] p-12 relative overflow-hidden">
+      <div className="hidden lg:flex flex-col justify-between w-1/2 bg-sidebar p-12 relative overflow-hidden">
         {/* Background Image with Overlay */}
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-10000 hover:scale-110"
           style={{ backgroundImage: 'url("/campus-bg.png")' }}
         />
-        <div className="absolute inset-0 z-1 bg-gradient-to-br from-[#0F1923]/95 via-[#0F1923]/80 to-transparent" />
+        <div className="absolute inset-0 z-1 bg-gradient-to-br from-sidebar/95 via-sidebar/80 to-transparent" />
 
         <div className="relative z-10">
           <div className="flex items-center gap-3">
@@ -65,7 +65,7 @@ const LoginPage = () => {
           <h2 className="text-4xl font-serif italic text-white leading-tight mb-6">
             "Empowering students to take control of their financial future."
           </h2>
-          <p className="text-gray-400 font-medium">
+          <p className="text-[#88edb1] font-medium opacity-90">
             BOF OAU — Bureau of Finance, Obafemi Awolowo University
           </p>
         </div>
