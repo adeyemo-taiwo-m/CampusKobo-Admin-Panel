@@ -19,7 +19,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { LearningContent } from '../types';
+import type { LearningContent } from '../types';
 import ConfirmModal from '../components/ui/ConfirmModal';
 
 const ContentFormPage = () => {

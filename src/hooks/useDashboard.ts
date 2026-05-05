@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '../lib/supabase';
-import { DashboardStats, LearningContent } from '../types';
+import type { DashboardStats, LearningContent } from '../types';
 
 export const useDashboardStats = () => {
   return useQuery({

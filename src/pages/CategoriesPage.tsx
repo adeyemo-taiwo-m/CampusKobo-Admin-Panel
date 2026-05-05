@@ -11,7 +11,7 @@ import ConfirmModal from '../components/ui/ConfirmModal';
 import { Tag, Pencil, Trash2 } from 'lucide-react';
 import { useAllCategories, useAddCategory, useUpdateCategory, useDeleteCategory } from '../hooks/useCategories';
 import { formatDate, slugify, truncate } from '../lib/utils';
-import { LearningCategory } from '../types';
+import type { LearningCategory } from '../types';
 
 const CategoriesPage = () => {
   const [searchParams] = useSearchParams();

@@ -12,7 +12,7 @@ import Badge from '../components/ui/Badge';
 import { BookOpen, Pencil, Trash2, Star } from 'lucide-react';
 import { useAllGlossaryTerms, useAddGlossaryTerm, useUpdateGlossaryTerm, useDeleteGlossaryTerm, useSetTermOfDay } from '../hooks/useGlossary';
 import { formatDate, truncate } from '../lib/utils';
-import { GlossaryTerm } from '../types';
+import type { GlossaryTerm } from '../types';
 import Select from '../components/ui/Select';
 
 const GlossaryPage = () => {
