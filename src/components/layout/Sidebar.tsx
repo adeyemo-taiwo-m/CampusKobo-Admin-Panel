@@ -1,9 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, FileText, Tag, BookOpen, LogOut } from 'lucide-react';
+import { LayoutDashboard, FileText, Tag, BookOpen, LogOut, X } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
-const Sidebar = () => {
+interface SidebarProps {
+  onClose?: () => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   const navItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
     { icon: FileText, label: 'Content', path: '/content' },
@@ -14,9 +18,19 @@ const Sidebar = () => {
   return (
     <aside className="w-64 h-screen bg-[#0F1923] text-white flex flex-col sticky top-0 border-r border-[#1E2D3D]">
       <div className="p-6">
-        <div className="flex flex-col items-start gap-2 mb-6">
-          <img src="/logo.svg" alt="CampusKobo Logo" className="h-12 w-auto object-contain" />
-          <span className="text-[10px] uppercase tracking-widest text-[#22C55E] font-bold ml-1">Admin Panel</span>
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col items-start gap-2">
+            <img src="/logo.svg" alt="CampusKobo Logo" className="h-10 w-auto object-contain" />
+            <span className="text-[10px] uppercase tracking-widest text-[#22C55E] font-bold ml-1">Admin Panel</span>
+          </div>
+          {onClose && (
+            <button 
+              onClick={onClose}
+              className="lg:hidden p-2 text-gray-400 hover:text-white"
+            >
+              <X size={20} />
+            </button>
+          )}
         </div>
         <div className="h-px bg-[#1E2D3D] w-full" />
       </div>
