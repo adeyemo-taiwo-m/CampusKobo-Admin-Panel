@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '../../lib/utils';
 
 interface TableProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }
 
