@@ -9,7 +9,7 @@ import ConfirmModal from '../components/ui/ConfirmModal';
 import EmptyState from '../components/ui/EmptyState';
 import { useAllContent, useDeleteContent } from '../hooks/useContent';
 import { useAllCategories } from '../hooks/useCategories';
-import { FileText, Pencil, Trash2, Filter } from 'lucide-react';
+import { FileText, Pencil, Trash2, Filter, Image as ImageIcon } from 'lucide-react';
 import { formatDate, truncate } from '../lib/utils';
 import Select from '../components/ui/Select';
 
@@ -119,6 +119,7 @@ const ContentListPage = () => {
           <Table>
             <Table.Header>
               <Table.Row>
+                <Table.Head className="w-16">Cover</Table.Head>
                 <Table.Head>Title</Table.Head>
                 <Table.Head>Type</Table.Head>
                 <Table.Head>Category</Table.Head>
@@ -133,6 +134,17 @@ const ContentListPage = () => {
                   key={item.id} 
                   onClick={() => navigate(`/content/${item.id}/edit`)}
                 >
+                  <Table.Cell>
+                    {item.cover_image_url ? (
+                      <div className="h-10 w-16 rounded overflow-hidden border border-gray-100">
+                        <img src={item.cover_image_url} alt="" className="h-full w-full object-cover" />
+                      </div>
+                    ) : (
+                      <div className="h-10 w-16 rounded bg-gray-50 border border-dashed border-gray-200 flex items-center justify-center text-gray-300">
+                        <ImageIcon size={16} />
+                      </div>
+                    )}
+                  </Table.Cell>
                   <Table.Cell className="font-bold text-gray-900 max-w-xs">
                     {truncate(item.title, 50)}
                   </Table.Cell>

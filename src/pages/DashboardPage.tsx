@@ -11,7 +11,9 @@ import {
   ChevronRight,
   PlayCircle,
   Mic,
-  ArrowRight
+  Mic,
+  ArrowRight,
+  Image as ImageIcon
 } from 'lucide-react';
 import { formatDate, truncate } from '../lib/utils';
 import Badge from '../components/ui/Badge';
@@ -93,6 +95,7 @@ const DashboardPage = () => {
             <Table>
               <Table.Header>
                 <Table.Row>
+                  <Table.Head className="w-12"></Table.Head>
                   <Table.Head>Title</Table.Head>
                   <Table.Head>Type</Table.Head>
                   <Table.Head>Category</Table.Head>
@@ -105,6 +108,17 @@ const DashboardPage = () => {
                     key={item.id} 
                     onClick={() => navigate(`/content/${item.id}/edit`)}
                   >
+                    <Table.Cell>
+                      <div className="h-8 w-8 rounded-md overflow-hidden border border-gray-100 flex-shrink-0">
+                        {item.cover_image_url ? (
+                          <img src={item.cover_image_url} alt="" className="h-full w-full object-cover" />
+                        ) : (
+                          <div className="h-full w-full bg-gray-50 flex items-center justify-center text-gray-300">
+                            <ImageIcon size={12} />
+                          </div>
+                        )}
+                      </div>
+                    </Table.Cell>
                     <Table.Cell className="font-bold text-gray-900">
                       {truncate(item.title, 40)}
                     </Table.Cell>

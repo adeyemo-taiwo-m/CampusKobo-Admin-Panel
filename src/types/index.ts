@@ -14,6 +14,8 @@ export interface LearningContent {
   title: string;
   duration: string | null;
   content: string | null;
+  cover_image_url: string | null;
+  media_url: string | null;
   is_featured: boolean;
   key_takeaways: string[];
   related_content_ids: string[];

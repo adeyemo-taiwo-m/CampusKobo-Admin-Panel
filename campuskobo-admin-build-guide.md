@@ -116,6 +116,8 @@ Paste into your agent:
 >   title: string;
 >   duration: string | null;
 >   content: string | null;
+>   cover_image_url: string | null;
+>   media_url: string | null;
 >   is_featured: boolean;
 >   key_takeaways: string[];
 >   related_content_ids: string[];
@@ -675,6 +677,11 @@ Paste into your agent:
 >
 > This is a sticky sidebar-like panel.
 >
+> **Media Assets card:**
+>
+> - **Cover Image** — File upload field with image preview. Uploads to Supabase Storage `learning-assets` bucket and saves the URL to `cover_image_url`. Required for all content types.
+> - **Media File** — File upload field for Video or Podcast files. Only shown if type is 'video' or 'podcast'. Uploads to `learning-assets` and saves the URL to `media_url`.
+>
 > **Publish Settings card:**
 >
 > - 'Category' — `<Select>` populated from `useAllCategories()`. If Finance 101 category is selected, show the Episode Number field below.
@@ -710,6 +717,12 @@ Paste into your agent:
 >
 > - Show success toast: 'Content published!' or 'Changes saved!'
 > - Navigate to `/content`"
+
+---
+
+**Note on File Uploads:**
+
+Use `supabase.storage.from('learning-assets').upload()` to handle file uploads. Make sure the `learning-assets` bucket exists in your Supabase project and is set to **Public**. Generate a unique filename for each upload (e.g., `Date.now() + '-' + file.name`). Use the `getPublicUrl()` method to retrieve the URL to save into the database.
 
 ---
 

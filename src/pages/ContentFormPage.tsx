@@ -16,11 +16,17 @@ import {
   Mic,
   AlertCircle,
   Save,
-  CheckCircle2
+  CheckCircle2,
+  Image as ImageIcon,
+  Video as VideoIcon,
+  UploadCloud,
+  X,
+  Loader2
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import type { LearningContent } from '../types';
 import ConfirmModal from '../components/ui/ConfirmModal';
+import { supabase } from '../lib/supabase';
 
 const ContentFormPage = () => {
   const { id } = useParams();
@@ -49,6 +55,8 @@ const ContentFormPage = () => {
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [uploadingCover, setUploadingCover] = useState(false);
+  const [uploadingMedia, setUploadingMedia] = useState(false);
 
   useEffect(() => {
     if (isEditMode && existingContent) {
@@ -100,6 +108,39 @@ const ContentFormPage = () => {
   const removeTakeaway = (index: number) => {
     const newTakeaways = (formData.key_takeaways || []).filter((_, i) => i !== index);
     setFormData({ ...formData, key_takeaways: newTakeaways });
+  };
+  
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: 'cover_image_url' | 'media_url') => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const isCover = field === 'cover_image_url';
+    if (isCover) setUploadingCover(true);
+    else setUploadingMedia(true);
+
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+      const filePath = `learning-content/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('learning-assets')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('learning-assets')
+        .getPublicUrl(filePath);
+
+      setFormData(prev => ({ ...prev, [field]: publicUrl }));
+      toast.success(`${isCover ? 'Cover image' : 'Media file'} uploaded!`);
+    } catch (error: any) {
+      toast.error(error.message || 'Upload failed');
+    } finally {
+      if (isCover) setUploadingCover(false);
+      else setUploadingMedia(false);
+    }
   };
 
   if (isEditMode && contentLoading) {
@@ -247,6 +288,101 @@ const ContentFormPage = () => {
         <div className="space-y-6">
           <div className="card p-6 space-y-6 sticky top-20">
             <h3 className="font-bold text-gray-900 border-b border-gray-100 pb-3 flex items-center gap-2">
+              <ImageIcon size={18} className="text-[#1A9E3F]" />
+              Media Assets
+            </h3>
+
+            {/* Cover Image Upload */}
+            <div className="space-y-3">
+              <label className="text-sm font-bold text-gray-700">Cover Image</label>
+              <div className="relative group">
+                {formData.cover_image_url ? (
+                  <div className="relative aspect-video rounded-xl overflow-hidden border border-gray-100 group">
+                    <img 
+                      src={formData.cover_image_url} 
+                      alt="Cover" 
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <button
+                        type="button"
+                        onClick={() => setFormData({ ...formData, cover_image_url: null })}
+                        className="p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                      >
+                        <X size={18} />
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <label className="flex flex-col items-center justify-center aspect-video rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 hover:bg-gray-100 hover:border-[#1A9E3F] transition-all cursor-pointer group">
+                    {uploadingCover ? (
+                      <Loader2 className="w-8 h-8 text-[#1A9E3F] animate-spin" />
+                    ) : (
+                      <>
+                        <UploadCloud className="w-8 h-8 text-gray-300 group-hover:text-[#1A9E3F] mb-2" />
+                        <span className="text-xs font-bold text-gray-400 group-hover:text-[#1A9E3F]">Upload Cover</span>
+                      </>
+                    )}
+                    <input 
+                      type="file" 
+                      className="hidden" 
+                      accept="image/*"
+                      onChange={(e) => handleFileUpload(e, 'cover_image_url')}
+                      disabled={uploadingCover}
+                    />
+                  </label>
+                )}
+              </div>
+            </div>
+
+            {/* Media File Upload (Video/Podcast) */}
+            {(formData.type === 'video' || formData.type === 'podcast') && (
+              <div className="space-y-3">
+                <label className="text-sm font-bold text-gray-700">
+                  {formData.type === 'video' ? 'Video File' : 'Podcast Audio'}
+                </label>
+                <div className="relative">
+                  {formData.media_url ? (
+                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                      <div className="p-2 bg-white rounded-lg shadow-sm">
+                        {formData.type === 'video' ? <VideoIcon size={20} className="text-purple-500" /> : <Mic size={20} className="text-orange-500" />}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Linked File</p>
+                        <p className="text-xs font-medium text-gray-600 truncate">{formData.media_url.split('/').pop()}</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setFormData({ ...formData, media_url: null })}
+                        className="p-1.5 text-gray-400 hover:text-red-500 transition-colors"
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="flex items-center gap-3 p-4 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 hover:bg-gray-100 hover:border-[#1A9E3F] transition-all cursor-pointer group">
+                      <div className="p-2 bg-white rounded-lg shadow-sm group-hover:text-[#1A9E3F]">
+                        {uploadingMedia ? <Loader2 size={20} className="animate-spin text-[#1A9E3F]" /> : <UploadCloud size={20} />}
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs font-bold text-gray-400 group-hover:text-[#1A9E3F]">
+                          {uploadingMedia ? 'Uploading...' : `Upload ${formData.type === 'video' ? 'Video' : 'Audio'}`}
+                        </p>
+                      </div>
+                      <input 
+                        type="file" 
+                        className="hidden" 
+                        accept={formData.type === 'video' ? 'video/*' : 'audio/*'}
+                        onChange={(e) => handleFileUpload(e, 'media_url')}
+                        disabled={uploadingMedia}
+                      />
+                    </label>
+                  )}
+                </div>
+              </div>
+            )}
+
+            <h3 className="font-bold text-gray-900 border-b border-gray-100 pt-2 pb-3 flex items-center gap-2">
               <CheckCircle2 size={18} className="text-[#1A9E3F]" />
               Publish Settings
             </h3>
