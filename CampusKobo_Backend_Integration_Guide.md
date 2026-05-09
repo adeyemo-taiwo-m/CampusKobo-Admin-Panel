@@ -24,7 +24,7 @@ The frontend was built as a fully **offline-first** app using AsyncStorage and a
 4. Falls back gracefully if the network is unavailable
 5. Keeps the existing local storage as a cache layer
 
-### What Will Change vs. What Stays the Same
+### What Will Change vs. What Stays the Sa me
 
 **What changes:**
 
