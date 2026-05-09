@@ -11,7 +11,6 @@ import {
   ChevronRight,
   PlayCircle,
   Mic,
-  Mic,
   ArrowRight,
   Image as ImageIcon
 } from 'lucide-react';
