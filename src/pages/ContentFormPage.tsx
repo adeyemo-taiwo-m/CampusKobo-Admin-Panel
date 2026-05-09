@@ -27,6 +27,7 @@ import { cn } from '../lib/utils';
 import type { LearningContent } from '../types';
 import ConfirmModal from '../components/ui/ConfirmModal';
 import { supabase } from '../lib/supabase';
+import { toast } from 'react-hot-toast';
 
 const ContentFormPage = () => {
   const { id } = useParams();
@@ -335,11 +336,11 @@ const ContentFormPage = () => {
               </div>
             </div>
 
-            {/* Media File Upload (Video/Podcast) */}
-            {(formData.type === 'video' || formData.type === 'podcast') && (
+            {/* Media File Upload (Video/Podcast/Article) */}
+            {(formData.type === 'video' || formData.type === 'podcast' || formData.type === 'article') && (
               <div className="space-y-3">
                 <label className="text-sm font-bold text-gray-700">
-                  {formData.type === 'video' ? 'Video File' : 'Podcast Audio'}
+                  {formData.type === 'video' ? 'Video File' : formData.type === 'podcast' ? 'Podcast Audio' : 'Article Media (Optional)'}
                 </label>
                 <div className="relative">
                   {formData.media_url ? (
@@ -372,7 +373,7 @@ const ContentFormPage = () => {
                       <input 
                         type="file" 
                         className="hidden" 
-                        accept={formData.type === 'video' ? 'video/*' : 'audio/*'}
+                        accept={formData.type === 'video' ? 'video/*' : formData.type === 'podcast' ? 'audio/*' : '*/*'}
                         onChange={(e) => handleFileUpload(e, 'media_url')}
                         disabled={uploadingMedia}
                       />
